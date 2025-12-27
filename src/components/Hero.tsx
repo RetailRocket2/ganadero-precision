@@ -25,15 +25,15 @@ export function Hero() {
           </div>
 
           {/* Main headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
             Transforma tu Hato:{" "}
-            <span className="text-primary-400">
+            <span className="text-primary-400 block sm:inline">
               De la Vaca Vacía a la Rentabilidad Garantizada
             </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto px-2">
             Taller de Certificación Práctica en{" "}
             <strong className="text-white">Inseminación Artificial a Tiempo Fijo (IATF)</strong>.
             Aprende a inseminar tu propio ganado en{" "}
@@ -103,7 +103,7 @@ export function Hero() {
             <p className="text-sm text-gray-300 mb-4">
               Impartido por profesional con más de 38 años de experiencia
             </p>
-            <div className="flex flex-wrap justify-center gap-8 text-gray-300">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-gray-300 text-sm sm:text-base">
               <div className="flex items-center gap-2">
                 <svg
                   className="w-5 h-5"

@@ -12,7 +12,7 @@ export function Instructor() {
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Instructor photo */}
-            <div className="relative">
+            <div className="relative mb-8 lg:mb-0">
               <div className="aspect-[4/5] bg-gradient-to-br from-primary-100 to-earth-100 rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src="/images/MVZ Manuel Henriquez 1.jpg"
@@ -22,9 +22,9 @@ export function Instructor() {
               </div>
 
               {/* Experience badge */}
-              <div className="absolute -bottom-6 -right-6 bg-primary-600 text-white p-6 rounded-2xl shadow-xl">
-                <div className="text-4xl font-bold">38+</div>
-                <div className="text-sm opacity-90">Años de Experiencia</div>
+              <div className="absolute -bottom-4 right-4 sm:-bottom-6 sm:-right-6 bg-primary-600 text-white p-4 sm:p-6 rounded-2xl shadow-xl">
+                <div className="text-3xl sm:text-4xl font-bold">38+</div>
+                <div className="text-xs sm:text-sm opacity-90">Años de Experiencia</div>
               </div>
             </div>
 

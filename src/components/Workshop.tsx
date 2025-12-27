@@ -169,10 +169,10 @@ export function Workshop() {
         </div>
 
         {/* Bottom note */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-2 bg-yellow-50 border border-yellow-200 text-yellow-800 px-6 py-3 rounded-full">
+        <div className="mt-12 text-center px-4">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-2 bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 sm:px-6 py-3 rounded-2xl sm:rounded-full">
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -184,7 +184,7 @@ export function Workshop() {
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <span className="font-medium">
+            <span className="font-medium text-sm sm:text-base text-center">
               Cada participante realizará múltiples inseminaciones supervisadas.
               Ratio instructor-alumno diseñado para atención personalizada.
             </span>
