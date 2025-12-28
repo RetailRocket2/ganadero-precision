@@ -1,5 +1,7 @@
 "use client";
 
+import { trackLead } from "@/lib/meta-pixel";
+
 interface WhatsAppButtonProps {
   text?: string;
   message?: string;
@@ -8,6 +10,7 @@ interface WhatsAppButtonProps {
   variant?: "solid" | "outline";
   showIcon?: boolean;
   pulse?: boolean;
+  trackingName?: string;
 }
 
 const WHATSAPP_NUMBER = "526183199966";
@@ -22,8 +25,15 @@ export function WhatsAppButton({
   variant = "solid",
   showIcon = true,
   pulse = false,
+  trackingName = "whatsapp_cta",
 }: WhatsAppButtonProps) {
   const handleClick = () => {
+    // Track Lead event
+    trackLead({
+      content_name: trackingName,
+      content_category: "taller_iatf_ganadero",
+    });
+
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     window.open(url, "_blank");
@@ -79,6 +89,7 @@ export function FloatingWhatsApp() {
         text=""
         size="lg"
         pulse={true}
+        trackingName="floating_whatsapp"
         className="!rounded-full !p-4 shadow-2xl"
       />
     </div>
