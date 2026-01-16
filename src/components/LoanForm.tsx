@@ -178,13 +178,19 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
         </label>
         <div className="relative">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             id="annualRate"
             value={annualRate}
-            onChange={(e) => setAnnualRate(e.target.value)}
-            min="0"
-            max="100"
-            step="0.5"
+            onChange={(e) => {
+              // Allow only numbers and decimal point
+              const value = e.target.value.replace(/[^0-9.]/g, "");
+              // Prevent multiple decimal points
+              const parts = value.split(".");
+              if (parts.length > 2) return;
+              setAnnualRate(value);
+            }}
+            placeholder="12"
             className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-lg"
           />
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
