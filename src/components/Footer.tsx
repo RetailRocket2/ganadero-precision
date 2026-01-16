@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -95,6 +97,14 @@ export function Footer() {
                   >
                     Preguntas Frecuentes
                   </a>
+                </li>
+                <li>
+                  <Link
+                    href="/simulador-credito"
+                    className="hover:text-white transition-colors"
+                  >
+                    Simulador de Crédito
+                  </Link>
                 </li>
               </ul>
             </div>
