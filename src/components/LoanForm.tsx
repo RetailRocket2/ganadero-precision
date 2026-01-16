@@ -29,28 +29,49 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
   const [annualRate, setAnnualRate] = useState(
     initialValues?.annualRate?.toString() || "12"
   );
+  const [downPaymentPercent, setDownPaymentPercent] = useState(
+    initialValues?.downPaymentPercent?.toString() || "0"
+  );
   const [termMonths, setTermMonths] = useState(
     initialValues?.termMonths?.toString() || "24"
   );
   const [errors, setErrors] = useState<string[]>([]);
 
-  // Calculate principal from cattle count and cost per head
-  const calculatedPrincipal = useMemo(() => {
+  // Calculate total amount from cattle count and cost per head
+  const totalAmount = useMemo(() => {
     const count = parseInt(cattleCount) || 0;
     const cost = parseFloat(costPerHead.replace(/,/g, "")) || 0;
     return count * cost;
   }, [cattleCount, costPerHead]);
+
+  // Calculate down payment amount from percentage
+  const downPaymentAmount = useMemo(() => {
+    const percent = parseFloat(downPaymentPercent) || 0;
+    return totalAmount * (percent / 100);
+  }, [totalAmount, downPaymentPercent]);
+
+  // Calculate principal (amount to finance)
+  const calculatedPrincipal = useMemo(() => {
+    return totalAmount - downPaymentAmount;
+  }, [totalAmount, downPaymentAmount]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const count = parseInt(cattleCount) || 0;
     const cost = parseFloat(costPerHead.replace(/,/g, "")) || 0;
+    const total = count * cost;
+    const downPercent = parseFloat(downPaymentPercent) || 0;
+    const downAmount = total * (downPercent / 100);
+    const principal = total - downAmount;
 
     const params: Partial<LoanParams> = {
       cattleCount: count,
       costPerHead: cost,
-      principal: count * cost,
+      totalAmount: total,
+      downPaymentPercent: downPercent,
+      downPaymentAmount: downAmount,
+      principal: principal,
       annualRate: parseFloat(annualRate) || 0,
       termMonths: parseInt(termMonths) || 0,
     };
@@ -150,16 +171,65 @@ export function LoanForm({ onSubmit, initialValues }: LoanFormProps) {
         </div>
       </div>
 
+      {/* Total Amount Display */}
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-700 font-medium">
+              Costo Total del Ganado
+            </p>
+            <p className="text-xs text-gray-600 mt-1">
+              {parseInt(cattleCount) || 0} cabezas ×{" "}
+              {formatCurrency(parseFloat(costPerHead.replace(/,/g, "")) || 0)}
+            </p>
+          </div>
+          <p className="text-2xl font-bold text-gray-900">
+            {formatCurrency(totalAmount)}
+          </p>
+        </div>
+      </div>
+
+      {/* Down Payment / Enganche */}
+      <div>
+        <label
+          htmlFor="downPaymentPercent"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
+          Enganche (%)
+        </label>
+        <div className="relative">
+          <input
+            type="text"
+            inputMode="decimal"
+            id="downPaymentPercent"
+            value={downPaymentPercent}
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^0-9.]/g, "");
+              const parts = value.split(".");
+              if (parts.length > 2) return;
+              setDownPaymentPercent(value);
+            }}
+            placeholder="0"
+            className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-lg"
+          />
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
+            %
+          </span>
+        </div>
+        <p className="mt-1 text-xs text-gray-500">
+          Enganche: {formatCurrency(downPaymentAmount)}
+        </p>
+      </div>
+
       {/* Calculated Principal Display */}
       <div className="bg-primary-50 border border-primary-200 rounded-xl p-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-primary-700 font-medium">
-              Monto Total del Crédito
+              Monto a Financiar
             </p>
             <p className="text-xs text-primary-600 mt-1">
-              {parseInt(cattleCount) || 0} cabezas ×{" "}
-              {formatCurrency(parseFloat(costPerHead.replace(/,/g, "")) || 0)}
+              {formatCurrency(totalAmount)} - {formatCurrency(downPaymentAmount)} (enganche)
             </p>
           </div>
           <p className="text-2xl font-bold text-primary-900">

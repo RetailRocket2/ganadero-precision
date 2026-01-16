@@ -4,7 +4,10 @@
 export interface LoanParams {
   cattleCount: number; // Cantidad de vacas
   costPerHead: number; // Costo por cabeza en MXN
-  principal: number; // Monto del préstamo (cattleCount * costPerHead)
+  totalAmount: number; // Monto total (cattleCount * costPerHead)
+  downPaymentPercent: number; // Enganche en porcentaje (e.g., 20 for 20%)
+  downPaymentAmount: number; // Monto del enganche
+  principal: number; // Monto a financiar (totalAmount - downPaymentAmount)
   annualRate: number; // Tasa anual en porcentaje (e.g., 12 for 12%)
   termMonths: number; // Plazo en meses
   startDate?: Date; // Fecha de inicio (default: today)
@@ -152,10 +155,19 @@ export function validateLoanParams(params: Partial<LoanParams>): string[] {
     errors.push("El costo máximo por cabeza es $100,000 MXN");
   }
 
-  // Validate calculated principal
-  const principal = (params.cattleCount || 0) * (params.costPerHead || 0);
-  if (principal > 50000000) {
+  // Validate calculated total amount
+  const totalAmount = (params.cattleCount || 0) * (params.costPerHead || 0);
+  if (totalAmount > 50000000) {
     errors.push("El monto total máximo es $50,000,000 MXN");
+  }
+
+  // Validate down payment
+  if (params.downPaymentPercent !== undefined && params.downPaymentPercent < 0) {
+    errors.push("El enganche no puede ser negativo");
+  }
+
+  if (params.downPaymentPercent !== undefined && params.downPaymentPercent > 99) {
+    errors.push("El enganche máximo es 99%");
   }
 
   // Validate interest rate
