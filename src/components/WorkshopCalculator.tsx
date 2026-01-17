@@ -123,10 +123,10 @@ export function WorkshopCalculator() {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6">
       {/* Sidebar - Parameters */}
-      <div className="lg:col-span-1">
-        <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
+      <div className="lg:col-span-1 order-2 lg:order-1">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:sticky lg:top-6">
           <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
             <span className="text-2xl">🎯</span> Mi Taller
           </h2>
@@ -405,9 +405,9 @@ export function WorkshopCalculator() {
       </div>
 
       {/* Main content */}
-      <div className="lg:col-span-3 space-y-6">
+      <div className="lg:col-span-3 space-y-6 order-1 lg:order-2">
         {/* Hero metrics */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
           <h3 className="text-lg text-gray-600 mb-4">
             Con <strong className="text-gray-900">{participants} participantes</strong> a{" "}
             <strong className="text-gray-900">${totalPrice.toLocaleString()} MXN</strong> cada
@@ -416,10 +416,10 @@ export function WorkshopCalculator() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {/* Profit */}
-            <div className="text-center p-4 rounded-xl bg-gray-50">
-              <p className="text-sm text-gray-500 mb-1">💰 Ganas por taller</p>
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-gray-50">
+              <p className="text-xs sm:text-sm text-gray-500 mb-1">💰 Ganas por taller</p>
               <p
-                className={`text-3xl font-bold ${
+                className={`text-2xl sm:text-3xl font-bold ${
                   workshopMetrics.profit > 0 ? "text-green-600" : "text-red-600"
                 }`}
               >
@@ -428,10 +428,10 @@ export function WorkshopCalculator() {
             </div>
 
             {/* Margin */}
-            <div className="text-center p-4 rounded-xl bg-gray-50">
-              <p className="text-sm text-gray-500 mb-1">📊 Tu margen</p>
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-gray-50">
+              <p className="text-xs sm:text-sm text-gray-500 mb-1">📊 Tu margen</p>
               <p
-                className={`text-3xl font-bold ${
+                className={`text-2xl sm:text-3xl font-bold ${
                   workshopMetrics.profitMargin > 30
                     ? "text-green-600"
                     : workshopMetrics.profitMargin > 0
@@ -453,12 +453,12 @@ export function WorkshopCalculator() {
             </div>
 
             {/* Break-even */}
-            <div className="text-center p-4 rounded-xl bg-gray-50">
-              <p className="text-sm text-gray-500 mb-1">
-                🎯 Minimo para no perder
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-gray-50">
+              <p className="text-xs sm:text-sm text-gray-500 mb-1">
+                🎯 Minimo
               </p>
               <p
-                className={`text-3xl font-bold ${
+                className={`text-2xl sm:text-3xl font-bold ${
                   workshopMetrics.breakEven <= 12 &&
                   participants >= workshopMetrics.breakEven
                     ? "text-green-600"
@@ -471,7 +471,7 @@ export function WorkshopCalculator() {
                   ? ">12"
                   : workshopMetrics.breakEven}
               </p>
-              <p className="text-xs text-gray-500">participantes</p>
+              <p className="text-xs text-gray-500">para no perder</p>
             </div>
           </div>
 
@@ -528,16 +528,16 @@ export function WorkshopCalculator() {
         </div>
 
         {/* Annual projection */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-            <span className="text-2xl">📅</span> ¿Como se ve tu año?
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <span className="text-xl sm:text-2xl">📅</span> ¿Como se ve tu año?
           </h3>
-          <p className="text-gray-500 mb-6">
+          <p className="text-sm sm:text-base text-gray-500 mb-4 sm:mb-6">
             Si haces <strong>{workshopsPerMonth} talleres al mes</strong> con ~
             <strong>{participants} participantes</strong> cada uno...
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 mb-4 sm:mb-6">
             <MetricCard
               label="Ingresos Anuales"
               value={formatCurrency(annualProjection.summary.totalRevenue)}
@@ -560,10 +560,10 @@ export function WorkshopCalculator() {
 
           {/* Simple bar chart visualization */}
           <div className="space-y-2">
-            <p className="text-sm font-medium text-gray-700">
+            <p className="text-xs sm:text-sm font-medium text-gray-700">
               Proyeccion mensual
             </p>
-            <div className="grid grid-cols-12 gap-1 h-32">
+            <div className="grid grid-cols-12 gap-0.5 sm:gap-1 h-24 sm:h-32">
               {annualProjection.monthlyData.map((month) => {
                 const maxProfit = Math.max(
                   ...annualProjection.monthlyData.map((m) =>
@@ -587,8 +587,9 @@ export function WorkshopCalculator() {
                         )}`}
                       />
                     </div>
-                    <span className="text-[10px] text-gray-500 mt-1">
-                      {month.monthName.substring(0, 3)}
+                    <span className="text-[8px] sm:text-[10px] text-gray-500 mt-1">
+                      {month.monthName.substring(0, 1)}
+                      <span className="hidden sm:inline">{month.monthName.substring(1, 3)}</span>
                     </span>
                   </div>
                 );
@@ -598,28 +599,29 @@ export function WorkshopCalculator() {
         </div>
 
         {/* Details tabs */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <span className="text-2xl">📊</span> Ver Detalles
+        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span className="text-xl sm:text-2xl">📊</span> Ver Detalles
           </h3>
 
           {/* Tab buttons */}
-          <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          <div className="flex gap-2 mb-4 sm:mb-6 overflow-x-auto pb-2 -mx-1 px-1">
             {[
-              { id: "costs" as const, label: "💰 Mis Costos" },
-              { id: "table" as const, label: "📈 Tabla de Precios" },
-              { id: "scenarios" as const, label: "🔄 Escenarios" },
+              { id: "costs" as const, label: "💰 Costos", labelFull: "💰 Mis Costos" },
+              { id: "table" as const, label: "📈 Precios", labelFull: "📈 Tabla de Precios" },
+              { id: "scenarios" as const, label: "🔄 Escenarios", labelFull: "🔄 Escenarios" },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? "bg-primary-600 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                {tab.label}
+                <span className="sm:hidden">{tab.label}</span>
+                <span className="hidden sm:inline">{tab.labelFull}</span>
               </button>
             ))}
           </div>
@@ -956,10 +958,10 @@ function MetricCard({
   positive?: boolean;
 }) {
   return (
-    <div className="bg-gray-50 rounded-xl p-4 text-center">
-      <p className="text-sm text-gray-500 mb-1">{label}</p>
+    <div className="bg-gray-50 rounded-xl p-3 sm:p-4 text-center">
+      <p className="text-xs sm:text-sm text-gray-500 mb-1 truncate">{label}</p>
       <p
-        className={`text-xl font-bold ${
+        className={`text-lg sm:text-xl font-bold ${
           positive !== undefined
             ? positive
               ? "text-green-600"
@@ -969,7 +971,7 @@ function MetricCard({
       >
         {value}
       </p>
-      {subtext && <p className="text-xs text-gray-500 mt-1">{subtext}</p>}
+      {subtext && <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{subtext}</p>}
     </div>
   );
 }
