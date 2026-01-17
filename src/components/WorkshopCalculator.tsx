@@ -125,7 +125,7 @@ export function WorkshopCalculator() {
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6">
       {/* Sidebar - Parameters */}
-      <div className="lg:col-span-1 order-2 lg:order-1">
+      <div className="lg:col-span-1">
         <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:sticky lg:top-6">
           <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
             <span className="text-2xl">🎯</span> Mi Taller
@@ -405,7 +405,7 @@ export function WorkshopCalculator() {
       </div>
 
       {/* Main content */}
-      <div className="lg:col-span-3 space-y-6 order-1 lg:order-2">
+      <div className="lg:col-span-3 space-y-6">
         {/* Hero metrics */}
         <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
           <h3 className="text-lg text-gray-600 mb-4">
