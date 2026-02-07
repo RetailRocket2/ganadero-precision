@@ -15,3 +15,6 @@ export { WhatsAppButton, FloatingWhatsApp } from "./WhatsAppButton";
 export { LoanSimulator } from "./LoanSimulator";
 export { LoanForm } from "./LoanForm";
 export { AmortizationTable } from "./AmortizationTable";
+
+// Ranching Projection Simulator
+export { RanchingSimulator } from "./ranching-projection/RanchingSimulator";
